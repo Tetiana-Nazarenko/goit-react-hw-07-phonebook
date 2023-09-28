@@ -1,4 +1,8 @@
 // import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/operations.js';
+import { getError, getIsLoading } from 'redux/selectors.js';
 
 import Contacts from './Contacts/Contacts.jsx';
 
@@ -11,14 +15,17 @@ import { Layout, HeadTitle, ContactsTitle } from './Layout.js';
 import { GlobalStyle } from './GlobaleStyle.js';
 
 export const App = () => {
-  //const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
   //const defaultContacts = useSelector(state => state.tasks);
   // const [contacts, setContacts] = useState(getContacts);
   // const [filter, setFilter] = useState('');
 
-  // useEffect(() => {
-  //   localStorage.setItem(localStorageKey, JSON.stringify(contacts));
-  // }, [contacts]);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   // //*** кастомні методи*/
   // const addContact = contact => {
@@ -57,6 +64,7 @@ export const App = () => {
       <ContactsTitle>Contacts</ContactsTitle>
 
       <Filter />
+      {isLoading && !error && <b> Request in progress...</b>}
       <Contacts />
       <GlobalStyle />
     </Layout>

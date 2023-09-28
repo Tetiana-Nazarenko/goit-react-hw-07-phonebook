@@ -3,7 +3,8 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 import { getVisibleContacts } from 'redux/selectors';
 
-import { addContact } from 'redux/contactSlice';
+//import { addContact } from 'redux/contactSlice';
+import { addContact } from 'redux/operations';
 
 import {
   Form,
